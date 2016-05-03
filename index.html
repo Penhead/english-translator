@@ -3,6 +3,7 @@
 <head>
   <title>English Translator</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-cookies.js"></script>
   <script src="assets/javascripts/app.js"></script>
   <link rel="stylesheet" href="assets/stylesheets/styles.css">
 	<link href='https://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
@@ -11,25 +12,29 @@
 	<div class="nav">
 	  <h2>English Around the World</h2>
 	</div>
-	
-  <div class="container" ng-controller="WordDisplay">
-	  <div>
-		<p>Settings</p>
-		<form novalidate id="settings">
-			<label>Choose your english based on your country</label>
-			<select>
-				<option value="American">American</option>
-				<option value="British">British</option>
-				<option value="Austrialian">Austrialian</option>
-				<option value="South African">South African</option>
-				<option value="Jamaican">Jamaican</option>
-			</select>
-		</form>
-	</div>
+  <div class="container">
+
+
+  <div ng-controller="OriginCountry">
+    <form ng-hide="ask" no-validate>
+      <label for="">Please select your country below.</label>
+      <span>If your country is not listed, select the one whose English is most like yours.</span>
+      <select ng-model="country">
+        <option value="american">America</option>
+        <option value="british">England</option>
+        <option value="australian">Australia</option>
+        <option value="southAfrican">South Africa</option>
+        <option value="jamaican">Jamaica</option>
+      </select>
+      <input type="submit" ng-click="default(country)" value="Submit"/>
+    </form>
+  </div>
+  <div ng-controller="WordDisplay">
     <form novalidate>
-      <input id="search" ng-keypress="$event.keyCode == 13  ? search(query): null " placeholder="search words" type="text" ng-model="query"/>
-<!--      <input type="submit" ng-click="search(query)" value="Search" />-->
-<!--      <input type="submit" ng-click="random()" value="Random" />-->
+		<input id="search" ng-keypress="$event.keyCode == 13  ? search(query): null " placeholder="search words" type="text" ng-model="query"/>
+
+<!--      <button type="button" ng-click="search(query)" name="search">Search</button>-->
+      <button type="button" ng-click="random()" name="random">Random</button>
     </form>
 	
     <div>
@@ -41,5 +46,6 @@
 		<p ng-show="!hasResults">"There were no results found. Please refine your search"</p>
     </div>
   </div>
+	 </div>
 </body>
 </html>
